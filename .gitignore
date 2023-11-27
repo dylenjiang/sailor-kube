@@ -1,0 +1,9 @@
+__pycache__/
+output/
+.idea/
+.vscode/
+*.json
+*.csv
+*.log
+.DS_Store
+
