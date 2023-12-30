@@ -109,19 +109,19 @@ function is_rocky {
 }
 
 function error_msg_print {
-     echo "$1" | sed -e 's/.*/\033[31&\033[0m/'
+     echo -e "\033[31m $@ \033[0m"
 }
 
 function info_msg_print {
-     echo "$1" | sed -e 's/.*/\033[32&\033[0m/'
+     echo -e "\033[32m $@ \033[0m"
 }
 
 function preflight {
     if type python3 >/dev/null 2>&1; then
         return
     else
-        msg="Python3 not found and python2 not support any more! Please ensure that the Python version is greater than or equal to 3.7."
-        error_msg_print msg
+        msg='Python3 not found and python2 not support any more! Please ensure that the Python version is greater than or equal to 3.7.'
+        error_msg_print $msg
         exit 1
     fi
 }
@@ -262,8 +262,8 @@ while getopts "bifhkp:sut" x; do
             cleanup
             ;;
         p)
-            prefix="PREFIX: ${PREFIX}"
-            info_msg_print prefix
+            prefix='PREFIX: ${PREFIX}'
+            info_msg_print $prefix
             ;;
         ?)
             printf "ERROR: did not recognize option '%s', please try -h\\n" "$x"
@@ -290,7 +290,6 @@ End User License Agreement - SailorKube
 ======================================
 Apache License 2.0
 For more details: https://www.apache.org/licenses/LICENSE-2.0
-
 SCRIPTS WILL DO:
 ===================
 1.Disable the firewall
@@ -298,8 +297,7 @@ SCRIPTS WILL DO:
 3.Download SailorKube source code
 ===================
 EOF
-printf "\\n"
-printf "Do you accept the license terms? [yes|no]\\n"
+printf "Do you accept the license terms and to do actions? [yes|no]\\n"
 printf ">>> "
 read -r ans
 ans=$(echo "${ans}" | tr '[:lower:]' '[:upper:]')
